@@ -31,7 +31,8 @@ function Update-Clock {
         $now = Get-Date
         $timeUntilAppointment = $global:nextAppointment.Start - $now
         if ($timeUntilAppointment.TotalSeconds -gt 0) {
-            $labelAppointment.Text = "$([math]::Round($timeUntilAppointment.TotalSeconds)) remaining: $($global:nextAppointment.Subject)"
+            $remainingTimeFormatted = "{0:hh\:mm\:ss}" -f [timespan]::fromseconds($timeUntilAppointment.TotalSeconds)
+            $labelAppointment.Text = "$remainingTimeFormatted remaining: $($global:nextAppointment.Subject)"
         } else {
             $labelAppointment.Text = "Now: $($global:nextAppointment.Subject)"
         }
